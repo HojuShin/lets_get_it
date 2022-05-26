@@ -72,16 +72,17 @@
         //고차 함수 (high order function) : 함수가 함수를 리턴 (return을 undefined가 아닌 함수로)
         //브라우저가 실행해주는 event를 사용하면 키보드로 입력되는 숫자를 받아올 수 있다.
         const onClickNumber = (event) => {
-            if (operator) { //연산자 입력함
-                if (!numTwo) { //1. 연산자가 있는 상태에서 아직 좌변을 입력하지 않았다면 $result입력창을 빈칸으로 만든 후
-                    $result.value = event.target.value.textContent;
-                }
-                numTwo += event.target.value.textContent; //2. 데이터를 입력
-            } else {
-                numOne +=event.target.value.textContent;
+            if (!operator) { //연산자 입력함
+                numOne += event.target.textContent;
+                $result.value += event.target.textContent;
+                return; //return으로 함수 종료. else문 필요없다.
             }
-            $result.value += event.target.value.textContent; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능
-        }
+            if (!numTwo) { //1. 연산자가 있는 상태에서 아직 좌변을 입력하지 않았다면 $result입력창을 빈칸으로 만든 후
+                $result.value = '';
+            }
+            numTwo += event.target.textContent;
+            $result.value += event.target.textContent; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능 //2. 데이터를 입력
+        };
 
         const onClickOperator = (opt) => () => {
             if (numOne) {//좌항 값이 있다면 
@@ -106,8 +107,35 @@
         document.querySelector("#minus").addEventListener('click', onClickOperator('-'));
         document.querySelector("#divide").addEventListener('click', onClickOperator('/'));
         document.querySelector("#multiply").addEventListener('click', onClickOperator('*'));
-        document.querySelector("#calculate").addEventListener('click',);
-        document.querySelector("#clear").addEventListener('click',);
+        document.querySelector("#calculate").addEventListener('click', () => {
+            if (numTwo) { //우항에 값이 있고
+                switch (operator) { //연산자도 있다면 ..각 연산자들이 저장된 변수를 사용해야 가져와서 쓸 수 있다.
+                    case '+':
+                        $result.value = parseInt(numOne) + parseInt(numTwo); //+는 숫자형으로 변환해야 계산이 가능하다. 나머지는 자동 전환 
+                        break;
+                    case '-':
+                        $result.value = numOne - numTwo;
+                        break;
+                    case '/':
+                        $result.value = numOne / numTwo;
+                        break;
+                    case '*':
+                        $result.value = numOne * numTwo;
+                        break;
+                    default: break;
+                }
+            } else {
+                alert('먼저 숫자를 입력하시오.');
+            }
+        });
+        document.querySelector("#clear").addEventListener('click', () => {
+            //초기화..초기상태 복사 붙여넣기 후 빈값으로 
+            $operator.value = '';
+            $result.value = '';
+            numOne = '';
+            operator = '';
+            numTwo = '';
+        });
     </script>
 </body>
 
