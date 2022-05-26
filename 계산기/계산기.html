@@ -70,16 +70,17 @@
         let numTwo = '';
 
         //고차 함수 (high order function) : 함수가 함수를 리턴 (return을 undefined가 아닌 함수로)
-        const onClickNumber = (num) => () => {
+        //브라우저가 실행해주는 event를 사용하면 키보드로 입력되는 숫자를 받아올 수 있다.
+        const onClickNumber = (event) => {
             if (operator) { //연산자 입력함
                 if (!numTwo) { //1. 연산자가 있는 상태에서 아직 좌변을 입력하지 않았다면 $result입력창을 빈칸으로 만든 후
-                    $result.value = '';
+                    $result.value = event.target.value.textContent;
                 }
-                numTwo += num; //2. 데이터를 입력
+                numTwo += event.target.value.textContent; //2. 데이터를 입력
             } else {
-                numOne += num;
+                numOne +=event.target.value.textContent;
             }
-            $result.value += num; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능
+            $result.value += event.target.value.textContent; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능
         }
 
         const onClickOperator = (opt) => () => {
@@ -91,16 +92,16 @@
             $operator.value = operator; //연산자는 하나뿐이므로 =
         }
 
-        document.querySelector("#num-0").addEventListener('click', onClickNumber('0'));
-        document.querySelector("#num-1").addEventListener('click', onClickNumber('1'));
-        document.querySelector("#num-2").addEventListener('click', onClickNumber('2'));
-        document.querySelector("#num-3").addEventListener('click', onClickNumber('3'));
-        document.querySelector("#num-4").addEventListener('click', onClickNumber('4'));
-        document.querySelector("#num-5").addEventListener('click', onClickNumber('5'));
-        document.querySelector("#num-6").addEventListener('click', onClickNumber('6'));
-        document.querySelector("#num-7").addEventListener('click', onClickNumber('7'));
-        document.querySelector("#num-8").addEventListener('click', onClickNumber('8'));
-        document.querySelector("#num-9").addEventListener('click', onClickNumber('9'));
+        document.querySelector("#num-0").addEventListener('click', onClickNumber);
+        document.querySelector("#num-1").addEventListener('click', onClickNumber);
+        document.querySelector("#num-2").addEventListener('click', onClickNumber);
+        document.querySelector("#num-3").addEventListener('click', onClickNumber);
+        document.querySelector("#num-4").addEventListener('click', onClickNumber);
+        document.querySelector("#num-5").addEventListener('click', onClickNumber);
+        document.querySelector("#num-6").addEventListener('click', onClickNumber);
+        document.querySelector("#num-7").addEventListener('click', onClickNumber);
+        document.querySelector("#num-8").addEventListener('click', onClickNumber);
+        document.querySelector("#num-9").addEventListener('click', onClickNumber);
         document.querySelector("#plus").addEventListener('click', onClickOperator('+'));
         document.querySelector("#minus").addEventListener('click', onClickOperator('-'));
         document.querySelector("#divide").addEventListener('click', onClickOperator('/'));
