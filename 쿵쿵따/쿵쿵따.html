@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿵쿵따 GAME</title>
+</head>
+
+<body>
+    <div>쿵쿵따 게임</div>
+    <div>순서 <span id="order">1</span></div>
+    <div>단어 <span id="word"></span></div>
+    <input type="">
+    <button>입력</button>
+
+    <script>
+        const number = Number(prompt('참가 인원을 입력하시오'));
+
+        //number = null 일 때 코드실행 제한 
+        if(number) {
+            const $order = document.querySelector("#order");
+            const $word = document.querySelector("#word");
+            const $input = document.querySelector("input");
+            const $button = document.querySelector("button");
+
+            let word; //단어 저장
+            let newWord; //새로운 단어 저장
+
+            const onClickButton = () => {
+                if (newWord.length === 3 && (!word || word[word.length - 1] === newWord[0])) {
+                    word = newWord;
+                    $word.textContent = word;
+                    //다음 순서 
+                    const order = Number($order.textContent); //textContent는 문자열로 출력된다
+                    if (order === number) {
+                        $order.textContent = 1;
+                    } else {
+                        $order.textContent = order + 1;
+                    }
+                } else {
+                    alert('올바르지않은 단어입니다.');
+                }
+                $input.value = '';
+                $input.focus();
+            };
+
+            const onInput = (event) => {
+                newWord = event.target.value; //키보드 값 가져오기
+            }
+
+            $input.addEventListener('input', onInput);
+            $button.addEventListener('click', onClickButton);
+
+        }
+        
+    </script>
+</body>
+
+</html>
