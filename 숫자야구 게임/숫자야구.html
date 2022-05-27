@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form id="form">
+    <form id="form"> 
         <input type="text" id="input">
         <button>확인</button>
     </form>
@@ -34,6 +34,37 @@
         //4번 반복
         //numbers [1,2,4,5,6,7,8,9]
         //answer [3]
+
+        //입력값 검증하기
+        const tries =[];
+        function checkInput(input) {
+            if(input.length !== 4) { //4자리 숫자인가
+               return alert('4자리 숫자를 입력하시오.');
+            }
+            //new Set : 배열 중복 데이터 자동제거 (중복이 없는 배열)
+            //3144 -> 314 (size : 3)
+            if(new Set(input).size !== 4) { //중복된 숫자가 있는가
+                return alert('중복되지 않게 입력해 주세요.');
+            }
+            if (tries.includes(input)) { //이미 있는 숫자인가
+                return alert('이미 시도한 값입니다');
+            }
+            return true ; 
+            //이 검증을 다 통과하면 true
+            //alert의 리턴값은 undefined -> if문에 false로 적용
+        }
+        $form.addEventListener('submit', (event) => { //input이 아닌 form에 이벤트리스너..표준
+            event.preventDefault(); //submit 새로고침 방지
+            const value = $input.value; //입력값 변수에 저장
+            $input.value = '';
+            //input값을 checkInput함수로 검사
+            if(checkInput(value)) {
+                //입력값 정상
+                tries.push(value);
+            } else {
+                //에러
+            }; 
+        })
     </script>
 </body>
 
