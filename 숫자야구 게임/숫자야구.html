@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form id="form"> 
+    <form id="form">
         <input type="text" id="input">
         <button>확인</button>
     </form>
@@ -20,6 +20,7 @@
         const $form = document.querySelector('#form');
         const $logs = document.querySelector('#logs');
 
+        //numbers, answer 컴퓨터가 뽑은 무작위 숫자
         const numbers = []; //무작위 번호
         for (let n = 0; n < 9; n += 1) {
             numbers.push(n + 1);
@@ -36,35 +37,58 @@
         //answer [3]
 
         //입력값 검증하기
-        const tries =[];
+        const tries = [];
         function checkInput(input) {
-            if(input.length !== 4) { //4자리 숫자인가
-               return alert('4자리 숫자를 입력하시오.');
+            if (input.length !== 4) { //4자리 숫자인가
+                return alert('4자리 숫자를 입력하시오.');
             }
             //new Set : 배열 중복 데이터 자동제거 (중복이 없는 배열)
             //3144 -> 314 (size : 3)
-            if(new Set(input).size !== 4) { //중복된 숫자가 있는가
+            if (new Set(input).size !== 4) { //중복이 제외된 숫자가 4자리인가 
                 return alert('중복되지 않게 입력해 주세요.');
             }
             if (tries.includes(input)) { //이미 있는 숫자인가
                 return alert('이미 시도한 값입니다');
             }
-            return true ; 
+            return true;
             //이 검증을 다 통과하면 true
             //alert의 리턴값은 undefined -> if문에 false로 적용
         }
+
         $form.addEventListener('submit', (event) => { //input이 아닌 form에 이벤트리스너..표준
             event.preventDefault(); //submit 새로고침 방지
             const value = $input.value; //입력값 변수에 저장
             $input.value = '';
             //input값을 checkInput함수로 검사
-            if(checkInput(value)) {
-                //입력값 정상
-                tries.push(value);
-            } else {
-                //에러
-            }; 
-        })
+            if (!checkInput(value)) { //입력값 문제 있음
+                return;
+            }
+            //입력값 문제 없음
+            if (answer.join('') === value) { //배열을 문자열로 변환.. [3,1,4,6] -> '3146' / join() -> '3,1,4,6'
+                $logs.textContent = '홈런!';
+                return;
+            }
+            if (tries.length >= 9) { //기회는 10번
+                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+                $logs.appendChild(message);
+                return;
+            }
+            //몇 스트라이크 몇 볼인지 검사
+            let strike = 0;
+            let ball = 0;
+            for (let i = 0; i < answer.length; i++) {
+                const index = value.indexOf(answer[i]);
+                if (index > -1) { //일치하는 숫자만 발견
+                    if (index === i) {
+                        strike += 1;
+                    } else { //숫자만 같다
+                        ball += 1;
+                    }
+                }
+            }
+            $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
+            tries.push(value);
+        });
     </script>
 </body>
 
