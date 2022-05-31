@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로또 추첨기</title>
     <style>
-        .ball {
+        .ball{
             display: inline-block;
             border: 1px solid black;
             border-radius: 20px;
             width: 40px;
-            height: 20px;
+            height: 40px;
             line-height: 40px;
             font-size: 20px;
             text-align: center;
@@ -24,14 +24,31 @@
     <div id="bonus">보너스 : </div>
 
     <script>
-        const candidate = Array(45).fill().map((v, i) => i + 1); //1-45
+        const candidate = Array(45).fill().map((v,i) => i + 1);
+
+        //피셔-에이츠 셔플 알고리즘
         const shuffle = []; 
         while (candidate.length > 0) {
-            const random = Math.floor(Math.random()*candidate.length); //무작위 뽑기
-            const spliceArray = candidate.splice(random, 1);
-            const value = spliceArray[0];
-            shuffle.push(value);
-        }
+            const random = Math.floor(Math.random()*candidate.length);
+            const spliceArray = candidate.splice(random,1); //spliceArray typeof object 
+            const value = spliceArray[0]; //number로 넣어 
+            shuffle.push(value); //shuffle에 넣는다.
+        } //45개의 숫자들이 shuffle에 랜덤순으로 나열됨. 
+        
+        const winBalls = shuffle.slice(0,6).sort((a,b) => a-b);
+        const bouns = shuffle[6]; //7번째 숫자
+
+        //타임 셋팅
+        const $result = document.querySelector('#result');
+        setTimeout(() => { 
+            const $ball = document.createElement('div'); //1초뒤 div생성 
+            $ball.className = 'ball'; //div에 className(html-class/ js-className) 지정
+            $ball.textContent = winBalls[0];
+            $result.appendChild($ball);
+        }, 1000); 
+
+        
+        
     </script>
 </body>
 </html>
