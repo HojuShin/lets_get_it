@@ -47,7 +47,7 @@
             if (new Set(input).size !== 4) { //중복이 제외된 숫자가 4자리인가 
                 return alert('중복되지 않게 입력해 주세요.');
             }
-            if (tries.includes(input)) { //이미 있는 숫자인가
+            if (tries.includes(input)) { //전에 입력해서 tries에 있는 숫자인가
                 return alert('이미 시도한 값입니다');
             }
             return true;
@@ -59,26 +59,25 @@
             event.preventDefault(); //submit 새로고침 방지
             const value = $input.value; //입력값 변수에 저장
             $input.value = '';
-            //input값을 checkInput함수로 검사
-            if (!checkInput(value)) { //입력값 문제 있음
+            if (!checkInput(value)) { //함수호출 입력값 문제 있음
                 return;
             }
             //입력값 문제 없음
-            if (answer.join('') === value) { //배열을 문자열로 변환.. [3,1,4,6] -> '3146' / join() -> '3,1,4,6'
+            if (answer.join('') === value) { 
                 $logs.textContent = '홈런!';
                 return;
             }
-            if (tries.length >= 9) { //기회는 10번
-                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+            if (tries.length >= 9) { //10번째 시도 때는 tries.lenth가 9
+                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`); //기존 text 유지하면서 새 text 추가
                 $logs.appendChild(message);
                 return;
             }
-            //몇 스트라이크 몇 볼인지 검사
+            //10번째 시도 전 까지 몇 스트라이크 몇 볼인지 검사
             let strike = 0;
             let ball = 0;
-            for (let i = 0; i < answer.length; i++) {
-                const index = value.indexOf(answer[i]);
-                if (index > -1) { //일치하는 숫자만 발견
+            for (let i = 0; i < answer.length; i++) { //i는 number1의 인덱스
+                const index = value.indexOf(answer[i]); // 겹치는 숫자 찾아서 index에 저장 
+                if (index > -1) { //겹치는 숫자가 있다. ->자리가 같은가? 
                     if (index === i) {
                         strike += 1;
                     } else { //숫자만 같다
@@ -87,7 +86,7 @@
                 }
             }
             $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
-            tries.push(value);
+            tries.push(value); //원래 검증 통과할 때 저장된다 (중첩if문 정리..)
         });
     </script>
 </body>
