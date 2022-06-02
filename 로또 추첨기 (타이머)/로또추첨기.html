@@ -33,11 +33,11 @@
         while (candidate.length > 0) {
             const random = Math.floor(Math.random() * candidate.length);
             const spliceArray = candidate.splice(random, 1); //spliceArray typeof object 
-            const value = spliceArray[0]; //number로 넣어 
-            shuffle.push(value); //shuffle에 넣는다.
+            // const value = spliceArray[0]; //number로 넣어 
+            shuffle.push(spliceArray[0]); //shuffle에 넣는다.
         } //45개의 숫자들이 shuffle에 랜덤순으로 나열됨. 
 
-        const winBalls = shuffle.slice(0,6).sort((a,b) => a - b);
+        const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b);
         const bonus = shuffle[6]; //7번째 숫자
 
         //타임 셋팅
@@ -49,19 +49,33 @@
             $ball.className = 'ball'; //div에 className(html-class/ js-className) 지정
             $ball.textContent = number;
             $target.appendChild($ball);
+            //Self Check 공 색칠하기
+            if (number < 10) {
+                $ball.style.backgroundColor = "red";
+                $ball.style.color = "white";
+            } else if (number < 20) {
+                $ball.style.backgroundColor = "orange";
+            } else if (number < 30) {
+                $ball.style.backgroundColor = "yellow";
+            } else if (number < 40) {
+                $ball.style.backgroundColor = "blue";
+                $ball.style.color = "white";
+            } else {
+                $ball.style.backgroundColor = "green";
+                $ball.style.color = "white";
+            }
         };
 
         //1-6 공 중복 제거
-        for(let i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             setTimeout(() => {
-            showBall(winBalls[i],$result);
-        }, 1000 * (i + 1)); //[0,1,2,3,4,5] -> 1000,2000,3000 ....
+                showBall(winBalls[i], $result);
+            }, 1000 * (i + 1)); //[0,1,2,3,4,5] -> 1000,2000,3000 ....
         }
         //보너스 공
         setTimeout(() => {
             showBall(bonus, $bonus);
         }, 7000);
-
     </script>
 </body>
 
