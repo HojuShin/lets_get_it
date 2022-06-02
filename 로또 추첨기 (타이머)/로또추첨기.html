@@ -35,17 +35,43 @@
             shuffle.push(value); //shuffle에 넣는다.
         } //45개의 숫자들이 shuffle에 랜덤순으로 나열됨. 
         
-        const winBalls = shuffle.slice(0,6).sort((a,b) => a-b);
+        const winBalls = shuffle.slice(0,6).sort((a,b) => a - b); 
         const bouns = shuffle[6]; //7번째 숫자
 
         //타임 셋팅
         const $result = document.querySelector('#result');
-        setTimeout(() => { 
+        const $bonus = document.querySelector('#bonus');
+
+        const showBall = (number, $target) => {
             const $ball = document.createElement('div'); //1초뒤 div생성 
             $ball.className = 'ball'; //div에 className(html-class/ js-className) 지정
-            $ball.textContent = winBalls[0];
-            $result.appendChild($ball);
+            $ball.textContent = number;
+            $target.appendChild($ball);
+        }
+
+        setTimeout(() => { 
+            showBall(winBalls[0],$result);
         }, 1000); 
+        setTimeout(() => { 
+            showBall(winBalls[1],$result);
+        }, 2000); 
+        setTimeout(() => { 
+            showBall(winBalls[2],$result);
+        }, 3000); 
+        setTimeout(() => { 
+            showBall(winBalls[3],$result);
+        }, 4000); 
+        setTimeout(() => { 
+            showBall(winBalls[4],$result);
+        }, 5000); 
+        setTimeout(() => { 
+            showBall(winBalls[5],$result);
+        }, 6000); 
+        setTimeout(() => { 
+            showBall(bouns, $bonus);
+        }, 7000); 
+
+
 
         
         
