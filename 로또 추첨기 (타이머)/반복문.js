@@ -18,7 +18,10 @@ Array(9).fill(0).map((element, index) => {
 Array(9).fill(0).map((e, i) => {
     return i + 1;
 })  //[1, 2, 3, 4, 5, 6, 7, 8, 9]
+const arr2 = Array(9).fill().map((v, i) => i + 1);
+//화살표 함수 중괄호 return 생략가능
 //for문으로 push하는 것보다 간결함 (성능은 조금 떨어짐)
+
 
 //259p 1분퀴즈
 const array = [1,3,5,7];
