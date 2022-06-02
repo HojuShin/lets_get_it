@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로또 추첨기</title>
     <style>
-        .ball{
+        .ball {
             display: inline-block;
             border: 1px solid black;
             border-radius: 20px;
@@ -19,24 +20,25 @@
         }
     </style>
 </head>
+
 <body>
     <div id="result">추첨 결과는?</div>
     <div id="bonus">보너스 : </div>
 
     <script>
-        const candidate = Array(45).fill().map((v,i) => i + 1);
+        const candidate = Array(45).fill().map((v, i) => i + 1);
 
         //피셔-에이츠 셔플 알고리즘
-        const shuffle = []; 
+        const shuffle = [];
         while (candidate.length > 0) {
-            const random = Math.floor(Math.random()*candidate.length);
-            const spliceArray = candidate.splice(random,1); //spliceArray typeof object 
+            const random = Math.floor(Math.random() * candidate.length);
+            const spliceArray = candidate.splice(random, 1); //spliceArray typeof object 
             const value = spliceArray[0]; //number로 넣어 
             shuffle.push(value); //shuffle에 넣는다.
         } //45개의 숫자들이 shuffle에 랜덤순으로 나열됨. 
-        
-        const winBalls = shuffle.slice(0,6).sort((a,b) => a - b); 
-        const bouns = shuffle[6]; //7번째 숫자
+
+        const winBalls = shuffle.slice(0,6).sort((a,b) => a - b);
+        const bonus = shuffle[6]; //7번째 숫자
 
         //타임 셋팅
         const $result = document.querySelector('#result');
@@ -47,34 +49,20 @@
             $ball.className = 'ball'; //div에 className(html-class/ js-className) 지정
             $ball.textContent = number;
             $target.appendChild($ball);
+        };
+
+        //1-6 공 중복 제거
+        for(let i = 0; i < 6; i++) {
+            setTimeout(() => {
+            showBall(winBalls[i],$result);
+        }, 1000 * (i + 1)); //[0,1,2,3,4,5] -> 1000,2000,3000 ....
         }
+        //보너스 공
+        setTimeout(() => {
+            showBall(bonus, $bonus);
+        }, 7000);
 
-        setTimeout(() => { 
-            showBall(winBalls[0],$result);
-        }, 1000); 
-        setTimeout(() => { 
-            showBall(winBalls[1],$result);
-        }, 2000); 
-        setTimeout(() => { 
-            showBall(winBalls[2],$result);
-        }, 3000); 
-        setTimeout(() => { 
-            showBall(winBalls[3],$result);
-        }, 4000); 
-        setTimeout(() => { 
-            showBall(winBalls[4],$result);
-        }, 5000); 
-        setTimeout(() => { 
-            showBall(winBalls[5],$result);
-        }, 6000); 
-        setTimeout(() => { 
-            showBall(bouns, $bonus);
-        }, 7000); 
-
-
-
-        
-        
     </script>
 </body>
+
 </html>
