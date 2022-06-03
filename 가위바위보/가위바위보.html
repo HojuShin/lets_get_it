@@ -35,28 +35,27 @@
 
         //y좌표가 0이라는 공통점이 있음. 세로만 조절함. 객체로 묶는다.
         const rspX = {
-            scissorsX: '0', //가위
-            rockX: '-220px', //바위
-            paperX: '-440px', //보
+            scissors: '0', //가위
+            rock: '-220px', //바위
+            paper: '-440px', //보
         }
 
         //일정 시간마다 rsp  반복하기
-        let computerChoice = rspX.scissorsX;
+        let computerChoice = 'scissors'; //값이 계속 바뀌니까 let
         setInterval(() => {
-            if (computerChoice === rspX.scissorsX) { //가위면
-                computerChoice = rspX.rockX; //화면 바뀌면 데이터도 바꿔주기
-                $computer.style.background = `url(${IMG_URL}) ${rspX.rockX} 0`; //바위 나와
-                $computer.style.backgroundSize = 'auto 200px';
-            } else if (computerChoice === rspX.rockX) {
-                computerChoice = rspX.paperX;
-                $computer.style.background = `url(${IMG_URL}) ${rspX.paperX} 0`; //바위 나와
-                $computer.style.backgroundSize = 'auto 200px';
-            } else if (computerChoice === rspX.paperX) {
-                computerChoice = rspX.scissorsX;
-                $computer.style.background = `url(${IMG_URL}) ${rspX.scissorsX} 0`; //바위 나와
-                $computer.style.backgroundSize = 'auto 200px';
+            if (computerChoice === 'scissors') {
+                computerChoice = 'rock'; //화면 바뀌면 데이터도 바꿔주기
+            } else if (computerChoice ===  'rock') { 
+                computerChoice = 'paper';
+            } else if (computerChoice ===  'paper') {
+                computerChoice = 'scissors';
             }
-        })
+            //주의! rspX.computerChoice 아님. 객체[프로퍼티]
+            $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`; 
+            $computer.style.backgroundSize = 'auto 200px';
+        },50)
+
+
     </script>
 </body>
 
