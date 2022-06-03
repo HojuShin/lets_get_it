@@ -29,19 +29,34 @@
         const $rock = document.querySelector("#rock");
         const $paper = document.querySelector("#paper");
         const $score = document.querySelector("#score");
-        const IMG_URL = './img/rsp1.png'; //이미지 변수에 저장..
-        // $computer.style.background = `url(${IMG_URL}) 0 0`; //x y 가위(0이면 px 생략가능)
-        // $computer.style.background = `url(${IMG_URL}) -220px 0`; //바위
-        // $computer.style.background = `url(${IMG_URL}) -440px 0`; //보
-        $computer.style.backgroundSize = 'auto 200px'; //가로 세로
-        //x좌표가 0이라는 공통점이 있음. 객체로 묶는다.
-        const rspX = { 
-           scissorsX: '-0',
-            rockX: '-220px',
-            paperX: '-440px', 
-        }
-         
+        const IMG_URL = './img/rsp1.png';
+        $computer.style.background = `url(${IMG_URL}) 0 0`; //세로사이즈 0, 가로사이즈 -220px하면 맨끝 이미지가 나옴  
+        $computer.style.backgroundSize = 'auto 200px'; //세로는 div 사이즈 (200px)에 맞추고 가로사이즈는 이미지가 반복되면 안되기에 auto(원본)를 줌 
 
+        //y좌표가 0이라는 공통점이 있음. 세로만 조절함. 객체로 묶는다.
+        const rspX = {
+            scissorsX: '0', //가위
+            rockX: '-220px', //바위
+            paperX: '-440px', //보
+        }
+
+        //일정 시간마다 rsp  반복하기
+        let computerChoice = rspX.scissorsX;
+        setInterval(() => {
+            if (computerChoice === rspX.scissorsX) { //가위면
+                computerChoice = rspX.rockX; //화면 바뀌면 데이터도 바꿔주기
+                $computer.style.background = `url(${IMG_URL}) ${rspX.rockX} 0`; //바위 나와
+                $computer.style.backgroundSize = 'auto 200px';
+            } else if (computerChoice === rspX.rockX) {
+                computerChoice = rspX.paperX;
+                $computer.style.background = `url(${IMG_URL}) ${rspX.paperX} 0`; //바위 나와
+                $computer.style.backgroundSize = 'auto 200px';
+            } else if (computerChoice === rspX.paperX) {
+                computerChoice = rspX.scissorsX;
+                $computer.style.background = `url(${IMG_URL}) ${rspX.scissorsX} 0`; //바위 나와
+                $computer.style.backgroundSize = 'auto 200px';
+            }
+        })
     </script>
 </body>
 
