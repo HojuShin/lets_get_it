@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보</title>
+    <style>
+        #computer {
+            width: 142px;
+            height: 200px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="computer"></div>
+    <div>
+        <button id="scissors">가위</button>
+        <button id="rock">바위</button>
+        <button id="paper">보</button>
+    </div>
+    <div id="score">0</div>
+
+    <script>
+        const $computer = document.querySelector("#computer");
+        const $scissors = document.querySelector("#scissors");
+        const $rock = document.querySelector("#rock");
+        const $paper = document.querySelector("#paper");
+        const $score = document.querySelector("#score");
+        const IMG_URL = './img/rsp1.png'; //이미지 변수에 저장..
+        // $computer.style.background = `url(${IMG_URL}) 0 0`; //x y 가위(0이면 px 생략가능)
+        // $computer.style.background = `url(${IMG_URL}) -220px 0`; //바위
+        // $computer.style.background = `url(${IMG_URL}) -440px 0`; //보
+        $computer.style.backgroundSize = 'auto 200px'; //가로 세로
+        //x좌표가 0이라는 공통점이 있음. 객체로 묶는다.
+        const rspX = { 
+           scissorsX: '-0',
+            rockX: '-220px',
+            paperX: '-440px', 
+        }
+         
+
+    </script>
+</body>
+
+</html>
