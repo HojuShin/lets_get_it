@@ -63,7 +63,7 @@
                 return;
             }
             //입력값 문제 없음
-            if (answer.join('') === value) { 
+            if (answer.join('') === value) {
                 $logs.textContent = '홈런!';
                 return;
             }
@@ -75,19 +75,28 @@
             //10번째 시도 전 까지 몇 스트라이크 몇 볼인지 검사
             let strike = 0;
             let ball = 0;
+            let out = 0; //아웃 횟수 
             for (let i = 0; i < answer.length; i++) { //i는 number1의 인덱스
                 const index = value.indexOf(answer[i]); // 겹치는 숫자 찾아서 index에 저장 
+                //Self Check
                 if (index > -1) { //겹치는 숫자가 있다. ->자리가 같은가? 
                     if (index === i) {
                         strike += 1;
                     } else { //숫자만 같다
                         ball += 1;
                     }
+                } else {
+                    //0 => flase 
+                    
                 }
             }
             $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
             tries.push(value); //원래 검증 통과할 때 저장된다 (중첩if문 정리..)
         });
+
+        //Self Check : 0볼 0스트라이크 /  3아웃 -> 패배 
+
+
     </script>
 </body>
 

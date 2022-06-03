@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보</title>
+</head>
+
+<body>
+    <div>가위바위보 <br>
+        공격 : <div class="cpt"></div>
+        수비 : <button class="rock">가위 <button class="paper">바위<button class="scissors">보
+    </div>
+
+    <script>
+        const RockPaperScissors = ["가위", "바위", "보"];
+        const cptPick = [];
+        for (let n = 0; n < RockPaperScissors.length; n++) {
+            const index = Math.floor(Math.random() * RockPaperScissors.length);
+            cptPick.push(RockPaperScissors[index]);
+            RockPaperScissors.splice(index, 1)
+        }
+
+        const onClickBtn = () => {
+            
+        }
+        
+    </script>
+
+</body>
+
+</html>

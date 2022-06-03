@@ -80,17 +80,17 @@
             if (!numTwo) { //1. 연산자가 있는 상태에서 아직 좌변을 입력하지 않았다면 $result입력창을 빈칸으로 만든 후
                 $result.value = '';
             }
-            numTwo += event.target.textContent;
-            $result.value += event.target.textContent; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능 //2. 데이터를 입력
+            numTwo += event.target.textContent; //2. 데이터를 입력
+            $result.value += event.target.textContent; // =을 하면 숫자가 바뀐다. +=을 해야 두자리 숫자 출력 가능
         };
 
         const onClickOperator = (opt) => () => {
             if (numOne) {//좌항 값이 있다면 
-                operator = opt;
+                operator = opt;  
             } else {
                 alert('먼저 숫자를 입력하시오.');
             }
-            $operator.value = operator; //연산자는 하나뿐이므로 =
+            $operator.value = operator; //연산자는 하나뿐이므로 =         
         }
 
         document.querySelector("#num-0").addEventListener('click', onClickNumber);
