@@ -39,7 +39,6 @@
             rock: '-220px', //바위
             paper: '-440px', //보
         }
-
         //일정 시간마다 rsp  반복하기
         let computerChoice = 'scissors'; //값이 계속 바뀌니까 let
         //재귀함수, setTimeout 
@@ -60,11 +59,37 @@
         //변수에 저장하는 이유 ? clear의 반환값으로 들어가야함.
         //타이머 만들 때마다 변수에 저장!
 
+        const scroeTable = {
+            rock: 0,
+            scissors: 1,
+            paper: -1,
+        }
+        let scoreNum = 0;
         let clickable = true;
         const clickButton = () => {
-            if(clickable) {
+            if (clickable) {
                 clearInterval(intervalId);
                 clickable = false; //클릭한 동안에는 f로 
+                const myChoice = event.target.textContent === '바위' //내선택
+                    ? 'rock'
+                    : event.target.textContent === '가위'
+                        ? 'scissors'
+                        : 'paper';
+                const myScore = scroeTable[myChoice];
+                const computerScore = scroeTable[computerChoice];
+                const diff = myScore - computerScore;
+                if ([2, -1].includes(diff)) {
+                    console.log('승리');
+                    scoreNum += 1
+                    $score.textContent = scoreNum;
+                } else if ([1, -2].includes(diff)) {
+                    console.log('패배')
+                    scoreNum -= 1
+                    $score.textContent = scoreNum;
+                } else {
+                    console.log('무승부'); 
+                    $score.textContent = scoreNum;
+                }
                 setTimeout(() => {
                     clickable = true;//1초뒤 다시 true로 만들어 if문 내부 실행되게 한다.
                     intervalId = setInterval(changeComputerHand, 50);
