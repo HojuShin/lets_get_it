@@ -60,24 +60,17 @@
         //변수에 저장하는 이유 ? clear의 반환값으로 들어가야함.
         //타이머 만들 때마다 변수에 저장!
 
-        //clickButton 5번 호출, 1번 인터벌->2번->...-> 5번(5번intervalId저장 )
-        //그 다음 버튼을 클릭하면, clear하면 5번만 취소..1-4번 계속 돌아감
+        let clickable = true;
         const clickButton = () => {
-            clearInterval(intervalId); //C1. 클릭하자마자 실행
-            $rock.removeEventListener('click', clickButton);
-            $scissors.removeEventListener('click', clickButton);
-            $paper.removeEventListener('click', clickButton);
-            setTimeout(() => { //clear 후 다시 동작하게 
-                $rock.addEventListener('click', clickButton);
-                $scissors.addEventListener('click', clickButton);
-                $paper.addEventListener('click', clickButton);
-                intervalId = setInterval(changeComputerHand, 50); 
-            }, 1000);
-        }
-        //디버깅2
-        //intervalId이 clear되고 다른 버튼을 클릭하지 못하게 함
-        //버튼 클릭 수가 쌓이지 않게 됨
-        //1초 후 setTimeout이 동작될때 다시 클릭 가능 하게 함.
+            if(clickable) {
+                clearInterval(intervalId);
+                clickable = false; //클릭한 동안에는 f로 
+                setTimeout(() => {
+                    clickable = true;//1초뒤 다시 true로 만들어 if문 내부 실행되게 한다.
+                    intervalId = setInterval(changeComputerHand, 50);
+                }, 1000)
+            }
+        };
         $rock.addEventListener('click', clickButton);
         $scissors.addEventListener('click', clickButton);
         $paper.addEventListener('click', clickButton);
