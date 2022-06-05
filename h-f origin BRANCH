@@ -1,0 +1,119 @@
+[33mcommit aa8831ea663597c08c600cf98c041fe98d9f8aef[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Sat Jun 4 04:18:42 2022 +0900
+
+    Recursion Function(재귀함수) /setTimeout
+
+[33mcommit 702d1e40c6707ca4dde75a45d894dc82e1368dbe[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Sat Jun 4 04:13:30 2022 +0900
+
+    Deduplication
+
+[33mcommit 0d2789ee82c16eb3fa105606023225176e284eaa[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Sat Jun 4 03:45:52 2022 +0900
+
+    setInterval() - Repeat 'rsp'
+
+[33mcommit 19210618962b6457b74cf71a581e1081bfddeea7[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Fri Jun 3 23:18:43 2022 +0900
+
+    Object, image sprite
+
+[33mcommit 171a0090510ef434bc552d40107bd6619d54e45f[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu Jun 2 13:25:14 2022 +0900
+
+    map
+
+[33mcommit 13ed90f1cc855b239e41750320b37e876ad5276f[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu Jun 2 13:24:20 2022 +0900
+
+    Self Check (color the ball)
+
+[33mcommit feaa31dadc656ef29ebc201f08ce2101bdc607ff[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu Jun 2 11:05:12 2022 +0900
+
+    Remove duplicates by looping
+
+[33mcommit c3f3bf840d92b303e1ae38c953e633b5f0941b9d[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu Jun 2 10:06:53 2022 +0900
+
+    Show 7 numbers (Duplicate code is treated as a function)
+
+[33mcommit 783fb6621aebea973d4c9f366779c84d45ced90e[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Tue May 31 15:30:39 2022 +0900
+
+    Fisher-Yates Shuffle algorithm, setTimeout
+
+[33mcommit 0351b9833ba10b9ea2dd9e713147dcae7de3325d[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Tue May 31 15:09:46 2022 +0900
+
+    sort,slice
+
+[33mcommit 63e858a1acd4a33f78b6200be92ee6c42fb0168f[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Tue May 31 12:55:16 2022 +0900
+
+    forEach, map
+
+[33mcommit 320d9acdaa214bddd99b09a709cbb17d013503bb[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Tue May 31 12:13:02 2022 +0900
+
+    Add comments
+
+[33mcommit 12855bde5b0ac0fe1ab34a61b6ad383124ef828d[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Sun May 29 20:52:54 2022 +0900
+
+    Random index draw
+
+[33mcommit b27d3a168d5ea15592f46864d93e27032bee7402[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Sat May 28 22:37:31 2022 +0900
+
+    Print the final result Check the strike and ball
+
+[33mcommit c038257b9be648eefc50bffa0b77a62a0e197377[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Fri May 27 15:38:34 2022 +0900
+
+    Input validation
+
+[33mcommit cdb392b17433a32a25c9c4be66c0a313f4d5d665[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu May 26 20:06:27 2022 +0900
+
+    Pick a random number
+
+[33mcommit d1f402d20086d6d5170bec7aa5d61526ab216a06[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu May 26 16:30:43 2022 +0900
+
+    =연산자로 결과값 도출, 초기화 시키기
+
+[33mcommit 03d50d354c77ab346b0ef7fcf89cd9a6a1ec964c[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu May 26 16:07:51 2022 +0900
+
+    event.target.value
+
+[33mcommit f2289d1e60eaa6926378a2e5b325c243a4ab3a7c[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu May 26 15:59:32 2022 +0900
+
+    고차함수
+
+[33mcommit c8a34fc0af6d74bdb67bb6b2de7ceffb61dfef53[m
+Author: HojuShin <shin03188@naver.com>
+Date:   Thu May 26 15:56:18 2022 +0900
+
+    first commit
