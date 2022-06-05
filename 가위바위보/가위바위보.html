@@ -21,7 +21,7 @@
         <button id="rock">바위</button>
         <button id="paper">보</button>
     </div>
-    <div id="score">0</div>
+    <div id="score"></div>
 
     <script>
         const $computer = document.querySelector("#computer");
@@ -30,7 +30,7 @@
         const $paper = document.querySelector("#paper");
         const $score = document.querySelector("#score");
         const IMG_URL = './img/rsp1.png';
-        $computer.style.background = `url(${IMG_URL}) 0 0`; //세로사이즈 0, 가로사이즈 -220px하면 맨끝 이미지가 나옴  
+        $computer.style.background = `url(${IMG_URL}) 0 0`; // left top -220px하면 맨끝 이미지가 나옴  
         $computer.style.backgroundSize = 'auto 200px'; //세로는 div 사이즈 (200px)에 맞추고 가로사이즈는 이미지가 반복되면 안되기에 auto(원본)를 줌 
 
         //y좌표가 0이라는 공통점이 있음. 세로만 조절함. 객체로 묶는다.
@@ -64,10 +64,13 @@
             scissors: 1,
             paper: -1,
         }
-        let scoreNum = 0;
+
+        let myScoreNum = 0; //내점수
+        let cumScoreNum = 0; //컴퓨터점수
+        let crnRnd = 0; //현재 라운드
         let clickable = true;
         const clickButton = () => {
-            if (clickable) {
+            if (clickable) { //flag
                 clearInterval(intervalId);
                 clickable = false; //클릭한 동안에는 f로 
                 const myChoice = event.target.textContent === '바위' //내선택
@@ -75,25 +78,33 @@
                     : event.target.textContent === '가위'
                         ? 'scissors'
                         : 'paper';
-                const myScore = scroeTable[myChoice];
-                const computerScore = scroeTable[computerChoice];
+                const myScore = scroeTable[myChoice]; //내 패 
+                const computerScore = scroeTable[computerChoice]; //컴퓨터 패
                 const diff = myScore - computerScore;
                 if ([2, -1].includes(diff)) {
-                    console.log('승리');
-                    scoreNum += 1
-                    $score.textContent = scoreNum;
+                    myScoreNum += 1;
+                    crnRnd += 1;
+                    $score.append(`${crnRnd}판 : 승리`,document.createElement('br'));
+                    if (myScoreNum === 3) {
+                        $score.append(`내가 이김`);
+                        return;
+                    }
                 } else if ([1, -2].includes(diff)) {
-                    console.log('패배')
-                    scoreNum -= 1
-                    $score.textContent = scoreNum;
+                    cumScoreNum += 1;
+                    crnRnd += 1;
+                    $score.append(`${crnRnd}판 : 패배`,document.createElement('br'));
+                    if (cumScoreNum === 3) {
+                        $score.append(`컴퓨터 승`)
+                        return;
+                    }
                 } else {
-                    console.log('무승부'); 
-                    $score.textContent = scoreNum;
+                    $score.append('무효판',document.createElement('br'));
                 }
                 setTimeout(() => {
                     clickable = true;//1초뒤 다시 true로 만들어 if문 내부 실행되게 한다.
                     intervalId = setInterval(changeComputerHand, 50);
                 }, 1000)
+
             }
         };
         $rock.addEventListener('click', clickButton);
