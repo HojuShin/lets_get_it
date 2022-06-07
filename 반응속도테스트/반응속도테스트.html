@@ -13,16 +13,13 @@
             text-align: center;
             user-select: none;
         }
-
         #screen.waiting {
             background-color: aqua;
         }
-
         #screen.ready {
             background-color: red;
             color: white;
         }
-
         #screen.now {
             background-color: greenyellow;
         }
@@ -43,6 +40,7 @@
         }
         let startTime;
         let endTime;
+        const records = []; //const 배열 .push로 새값 추가 가능..대입은 불가능
         //현재 화면이 어떤 화면인지 알아야한다. 
         //$tag.classList.contains('.classname')
         $screen.addEventListener('click', function () {
@@ -59,9 +57,14 @@
                 }, Math.floor(Math.random() * 1000) + 2000); // 2000 - 3000 사이..사용자가 예측하지 못하게 무작위 시간 설정
             } else if ($screen.classList.contains('ready')) {
             } else if ($screen.classList.contains('now')) {
-                //끝시간 재기
-                // 시간차이 저장하기 
                 endTime = new Date();
+                const current = endTime - startTime; //시간차이
+                records.push(current); //시간차이 records에 넣기
+                const average = records.reduce((a,c) => a + c) / records.length ;
+                $result.textContent = `현재 ${current}ms, 평균 : ${average}ms`;
+                //null 안해도 되지만 혹여 이전값이 들어갈 수 있음
+                startTime = null;
+                endTime = null;
                 $screen.textContent = `${endTime - startTime}ms`;
                 $screen.classList.replace('now', 'waiting');
                 $screen.textContent = '클릭해서 시작하세요';
