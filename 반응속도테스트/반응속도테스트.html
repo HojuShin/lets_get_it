@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응속도 테스트</title>
+    <style>
+        #screen {
+            width: 300px;
+            height: 200px;
+            text-align: center;
+            user-select: none;
+        }
+
+        #screen.waiting {
+            background-color: aqua;
+        }
+
+        #screen.ready {
+            background-color: red;
+            color: white;
+        }
+
+        #screen.now {
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="screen" class="waiting">클릭해서 시작하세요</div>
+    <div id="result"></div>
+
+    <script>
+        const $screen = document.querySelector("#screen");
+        const $result = document.querySelector("#result");
+
+        //클릭할 때 화면 전환
+        //클릭 -> 빨강화면 (준비화면) 전환
+        //빨강화면에서 임의의 시간이 지난 후 자동으로 초록 전환
+        //waiting 대기 / ready 준비 / now 클릭 화면
+
+        const clickButton = () => {
+        }
+
+        //현재 화면이 어떤 화면인지 알아야한다. 
+        $screen.addEventListener('click', function () {
+            if ($screen.classList.contains('waiting')) {
+                $screen.classList.remove('waiting');
+                $screen.classList.add('ready');
+                $screen.textContent = '초록색이 되면 클릭하세요';
+                setTimeout(function () {
+                    $screen.classList.remove('add');
+                    $screen.classList.add('now');
+                    $screen.textContent = '클릭하세요!';
+                }, Math.floor(Math.random() * 1000) + 2000); // 2000 - 3000 사이
+            } else if ($screen.classList.contains('ready')) {
+            } else if ($screen.classList.contains('now')) {
+            }
+        });
+    </script>
+</body>
+
+</html>
