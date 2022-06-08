@@ -42,6 +42,7 @@
         let endTime;
         const records = []; //const 배열 .push로 새값 추가 가능..대입은 불가능
         let timeoutId;
+        let records_rank; //나의시도
         //현재 화면이 어떤 화면인지 알아야한다. 
         //$tag.classList.contains('.classname')
         $screen.addEventListener('click', function () {
@@ -58,14 +59,16 @@
                 }, Math.floor(Math.random() * 1000) + 2000); // 2000 - 3000 사이..사용자가 예측하지 못하게 무작위 시간 설정
             } else if ($screen.classList.contains('ready')) {
                 clearTimeout(timeoutId);
-                $screen.classList.replace('ready','waiting');
+                $screen.classList.replace('ready', 'waiting');
                 $screen.textContent = '너무 성급하군용';
             } else if ($screen.classList.contains('now')) {
                 endTime = new Date();
                 const current = endTime - startTime; //시간차이
                 records.push(current); //시간차이 records에 넣기
-                const average = records.reduce((a,c) => a + c) / records.length ;
-                $result.textContent = `현재 ${current}ms, 평균 : ${average}ms`;
+                const average = records.reduce((a, c) => a + c) / records.length;
+                //Slef check 나의 시도
+                records_rank = records.slice().sort((a, b) => a - b); //이중에서 상위 5개 
+                $result.textContent = `현재 ${current}ms, 평균 : ${average}ms, 상위 5위 : ${records_rank.slice(0, 5)}`;
                 //null 안해도 되지만 혹여 이전값이 들어갈 수 있음
                 startTime = null;
                 endTime = null;
