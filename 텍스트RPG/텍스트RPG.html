@@ -56,52 +56,96 @@
         const $monsterHp = document.querySelector("#monster-hp");
         const $monsterAtt = document.querySelector("#monster-att");
         const $message = document.querySelector("#message"); //게임 상황 메세지
-        const hero = {
-            name: '',
-            lev: 1,
-            maxHp: 100, //최대체력
-            hp: 100, //현재체력 0이 되면 게임오버 
-            xp: 0, //현재 경험치 15경험치 이상 얻으면 레벨업 
-            att: 10, //공격력
-        } //처음 히어로 생성시 초기값 (정보, 객체)
-        //XP가 일정 수준에 도달하면 레벨업 -> 체력과 공격력이 올라감 
-        let monster = null; //아직 생성되지 않음
-        const monsterList = [
-            { name: '슬라임', hp: 25, att: 10, xp: 10 },
-            { name: '스켈레톤', hp: 50, att: 15, xp: 20 },
-            { name: '마왕', hp: 150, att: 35, xp: 50 },
-        ]; //랜덤으로 만들어서 monster에 넣을 거임
 
-        $startScreen.addEventListener('submit', (event) => {
-            event.preventDefault(); //괄호 주의
-            const name = event.target['name-input'].value; //주인공 이름 가져오기
-            $startScreen.style.display = 'none';
-            $gameMenu.style.display = 'block';
-            $heroName.textContent = name;
-            $heroLevel.textContent = `${hero.lev}Lev`;
-            $heroHp.textContent = `HP : ${hero.hp}/${hero.maxHp}`; //현재체력 / 최대체력
-            $heroXp.textContent = `XP : ${hero.xp}/${15 * hero.lev}`; //15경험치 이상 얻으면 레벨업 
-            $heroAtt.textContent = `ATT : ${hero.att}`;
-            hero.name = name;
-        });
-        //$gameMenu 
-        $gameMenu.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const input = event.target['menu-input'].value;
-            if (input === '1') { //모험이면 몬스터 정보 나타내기 
-                $gameMenu.style.display = 'none';
-                $battleMenu.style.display = 'block';
-                monster = JSON.parse( //깊은 복사 .. 원본값이 바뀌면 안돼
-                    JSON.stringify(monsterList[Math.floor(Math.random() * monsterList.length)])
-                );
-                monster.maxHp = monster.hp;
-                $monsterName.textContent = monster.name;
-                $monsterHp.textContent = `HP : ${monster.hp}/${monster.maxHp}`;
-                $monsterAtt.textContent = `ATT : ${monster.att}`;
-            } else if (input === '2') {
-            } else if (input === '3') {
+        class Game { //게임을 총괄함
+            constructor(name) {
+                this.monster = null;
+                this.hero = null;
+                this.monsterList = [
+                    { name: '슬라임', hp: 25, att: 10, xp: 10 },
+                    { name: '스켈레톤', hp: 50, att: 15, xp: 20 },
+                    { name: '마왕', hp: 150, att: 35, xp: 50 },
+                ];
+                this.start();
             }
-        });
+            start() {
+                $startScreen.addEventListener('submit', this.onGameMenuInput);
+                $battleMenu.addEventListener('submit', this.onBattleMenuInput);
+                this.changeScreen('game');
+            }
+            changeScreen(screen) {
+                if (screen === 'start') {
+                    $startScreen.style.display = 'block'; 
+                    $gameMenu.style.display = 'none'; 
+                    $battleMenu.style.display = 'none'; 
+                } else if (screen === 'game') {
+                    $startScreen.style.display = 'none'; 
+                    $gameMenu.style.display = 'block'; 
+                    $battleMenu.style.display = 'none'; 
+                } else if (screen === 'battle') {
+                    $startScreen.style.display = 'none'; 
+                    $gameMenu.style.display = 'none'; 
+                    $battleMenu.style.display = 'block'; 
+                }
+            }
+            onGameMenuInput = (event) => { //게임메뉴 클릭
+                event.preventDefault();
+                const input = event.target['menu-input'].value;
+                if (input === '1') { //모험이면
+                    this.changeScreen('battle');
+                } else if (input === '2') { //휴식
+                } else if (input === '3') { //종료
+                }
+            }
+            onBattleMenuInput = (event) => {
+                event.preventDefault();
+                const input = event.target['battle-input'].value;
+                if (input === '1') { //공격
+                } else if (input === '2') { //회복
+                } else if (input === '3') { //도망
+                }
+            }
+        }
+
+        class Hero {
+            constructor(game, name) {
+                this.game = game;
+                this.name = name;
+                this.lev = 1;
+                this.maxHp = 100; //최대체력
+                this.hp = 100; //현재체력
+                this.xp = 0; //현재 경험치
+                this.att = 10; // 공격력
+            }
+            attack(target) {
+                target.hp -= this.att;
+            }
+            heal(monster) {
+                this.hp += 20;
+                this.hp -= monster.att;
+            }
+        }
+        class Monster {
+            constructor(game, name, hp, att, xp) {
+                this.game = game;
+                this.name = name;
+                this.maxHp = hp;
+                this.hp = hp;  //현재체력 0이 되면 게임오버 
+                this.att = att;
+                this.xp = xp; //15경험치 이상 얻으면 레벨업 
+            }
+            attack(target) {
+                target.hp -= this.att;
+            }
+        }
+
+        let game = null;
+        $startScreen.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const name = event.target['name-input'].value;
+            game = new Game(name);
+        })
+    
     </script>
 </body>
 
